@@ -1,10 +1,14 @@
 package com.example
-import slick.jdbc.PostgresProfile.api._
+
+import com.example.connection.{MySqlComponent, DBComponent, PostgresDbProvider}
 
 case class Project(emp_id : Int,pid:Int,name :String)
 
 
-trait ProjectTable extends EmployeeTable{
+trait ProjectTable extends EmployeeTable with MySqlComponent{
+
+  this: DBComponent =>
+  import driver.api._
 
   private[example] class ProjectTable(tag: Tag) extends Table[Project](tag, "new_project_table"){
 

@@ -31,6 +31,8 @@ object DataBaseExecutor extends App{
     EmployeeComponent.insert(Employee(5,"shiv",5))
     EmployeeComponent.upsert(Employee(5,"shiva",6))
     EmployeeComponent.upsert(Employee(6,"shilpa",6))
+    EmployeeComponent.upsert(Employee(6,"shilpi",6))
+
 
 
     //    val allEmployees = EmployeeComponent.getAll

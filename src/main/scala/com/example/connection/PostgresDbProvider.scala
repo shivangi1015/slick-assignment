@@ -1,23 +1,17 @@
 package com.example.connection
 
-import slick.jdbc.PostgresProfile
 
-/**
-  * Created by knoldus on 10/3/17.
-  */
+import slick.driver.PostgresDriver
+
+
 trait PostgresDbProvider extends DBComponent{
 
-  val driver = PostgresProfile
+  val driver = PostgresDriver
 
   import driver.api._
 
-  val db: Database = PostgresDB.connectionPool
+  val db: Database = Database.forConfig("myPostgresDB")
 
-
-    object PostgresDB{
-      val connectionPool =Database.forConfig("database")
-
-    }
 
 
 

@@ -1,11 +1,13 @@
 package com.example
 
-import slick.jdbc.PostgresProfile.api._
+import com.example.connection.{MySqlComponent, PostgresDbProvider, DBComponent}
 
 
 case class Dependent(emp_id: Int,name: String,relationship: String,age: Option[Int])
 
-trait DependentTable extends EmployeeTable{
+trait DependentTable extends EmployeeTable with MySqlComponent {
+  this: DBComponent =>
+  import driver.api._
 
   class DependentTable(tag: Tag) extends Table[Dependent](tag, "employee_dependents"){
     val emp_id = column[Int]("emp_id")

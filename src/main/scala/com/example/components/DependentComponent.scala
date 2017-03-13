@@ -1,7 +1,7 @@
 package com.example.components
 
+import com.example.connection.DBComponent
 import com.example.{Dependent, DependentTable}
-import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -9,8 +9,8 @@ import scala.concurrent.{Await, Future}
 
 trait DependentComponent extends DependentTable{
 
-  val db = Database.forConfig("myPostgresDB")
-
+  this: DBComponent =>
+  import driver.api._
   def create = db.run(dependentTableQuery.schema.create)
 
   def insert(dependent : Dependent) = db run{

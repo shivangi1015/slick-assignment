@@ -1,7 +1,6 @@
 package com.example
 
-import com.example.connection.{PostgresDbProvider, DBComponent}
-import slick.jdbc.PostgresProfile.api._
+import com.example.connection.{MySqlComponent, PostgresDbProvider, DBComponent}
 
 /**
   * Created by knoldus on 10/3/17.
@@ -9,8 +8,9 @@ import slick.jdbc.PostgresProfile.api._
 case class Employee(id:Int,name:String,experience:Double)
 
 
-trait EmployeeTable{
-
+trait EmployeeTable extends MySqlComponent{
+  this: DBComponent =>
+  import driver.api._
 
   private[example] class EmployeeTable(tag: Tag) extends Table[Employee](tag, "experienced_employee"){
 

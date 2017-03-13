@@ -2,20 +2,15 @@ package com.example.components
 
 import com.example.connection.DBComponent
 import com.example.{Employee, EmployeeTable}
-import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 
 
-/**
-  * Created by knoldus on 11/3/17.
-  */
 trait EmployeeComponent extends EmployeeTable {
 
   this: DBComponent =>
-  import driver.api
-  val db = Database.forConfig("myPostgresDB")
+  import driver.api._
 
   def create = db.run(employeeTableQuery.schema.create)
 
@@ -55,4 +50,4 @@ trait EmployeeComponent extends EmployeeTable {
 }
 
 
-object EmployeeComponent extends EmployeeComponent with DBComponent
+object EmployeeComponent extends EmployeeComponent
