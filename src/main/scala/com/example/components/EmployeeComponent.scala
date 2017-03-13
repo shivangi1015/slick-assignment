@@ -47,6 +47,11 @@ trait EmployeeComponent extends EmployeeTable {
     }
 
   }
+
+  def sortByEmployeeName() {
+    val sortedNames = employeeTableQuery.sortBy(x => x.name)
+    sortedNames
+  }
 }
 
 

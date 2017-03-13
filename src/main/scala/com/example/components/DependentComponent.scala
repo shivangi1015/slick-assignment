@@ -2,6 +2,8 @@ package com.example.components
 
 import com.example.connection.DBComponent
 import com.example.{Dependent, DependentTable}
+import slick.dbio.Effect.Read
+import slick.sql.FixedSqlStreamingAction
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -46,6 +48,10 @@ trait DependentComponent extends DependentTable{
       }
     }
 
+  }
+
+  def getRetiredDependents = db run{
+    dependentTableQuery.to[List].filter(_.age > 60).result
   }
 }
 

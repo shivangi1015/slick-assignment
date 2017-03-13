@@ -48,6 +48,11 @@ trait ProjectComponent extends ProjectTable{
     }
 
   }
+
+  def sortByProjectName() {
+    val sortedNames = projectTableQuery.sortBy(x => x.name)
+    sortedNames
+  }
 }
 
 object ProjectComponent extends ProjectComponent
