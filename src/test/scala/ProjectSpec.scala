@@ -10,7 +10,7 @@ class ProjectSpec extends AsyncFunSuite {
 
   test("Adding new Project ") {
 
-    proj.insert(Project(2,6,"snake game")).map(x=>assert(x == 0))
+    proj.insert(Project(2,2,"snake game")).map(x=>assert(x == 1))
   }
 
 //  test("updating new record ") {

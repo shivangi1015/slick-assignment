@@ -69,6 +69,10 @@ trait ProjectComponent extends ProjectTable{
     db.run(innerJoin.to[List].result)
   }
 
+//  def count ={
+//    db.run((projectTableQuery.length)
+//  }
+
 }
 
 object ProjectComponent extends ProjectComponent with MySqlComponent

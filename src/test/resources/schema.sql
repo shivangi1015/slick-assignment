@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS experienced_employee(id int PRIMARY KEY,name varchar(
 
 DROP TABLE IF EXISTS new_project_table;
 
-CREATE TABLE IF NOT EXISTS new_project_table(id int ,pid int PRIMARY KEY, name varchar(200));
+CREATE TABLE IF NOT EXISTS new_project_table(emp_id int ,pid int PRIMARY KEY, name varchar(200));
 
