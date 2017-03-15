@@ -1,6 +1,6 @@
 package com.example.components
 
-import com.example.connection.DBComponent
+import com.example.connection.{MySqlComponent, DBComponent}
 import com.example.{Dependent, DependentTable}
 import slick.dbio.Effect.Read
 import slick.sql.FixedSqlStreamingAction
@@ -53,6 +53,15 @@ trait DependentComponent extends DependentTable{
   def getRetiredDependents = db run{
     dependentTableQuery.to[List].filter(_.age > 60).result
   }
+
+
+  def leftJoin ={
+    val innerJoin = for{
+      (e,d) <- employeeTableQuery join dependentTableQuery on(_.id === _.emp_id)
+    }yield (e.name,d.age)
+
+    db.run(innerJoin.to[List].result)
+  }
 }
 
-object DependentComponent extends DependentComponent
+object DependentComponent extends DependentComponent with MySqlComponent

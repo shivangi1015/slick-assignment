@@ -1,6 +1,6 @@
 package com.example.components
 
-import com.example.connection.DBComponent
+import com.example.connection.{MySqlComponent, DBComponent}
 import com.example.{Project, ProjectTable}
 
 import scala.concurrent.duration.Duration
@@ -34,7 +34,7 @@ trait ProjectComponent extends ProjectTable{
   }
 
 
-  def upsert(proj : Project) {
+  def upsert(proj : Project) ={
     val res: List[Project] = Await.result(ProjectComponent.getAll,Duration.Inf)
     val flag = res.map(x => if(x.emp_id == proj.emp_id) true else false)
     if(flag.contains(true)){
@@ -51,8 +51,24 @@ trait ProjectComponent extends ProjectTable{
 
   def sortByProjectName() {
     val sortedNames = projectTableQuery.sortBy(x => x.name)
-    sortedNames
   }
+
+  def leftJoin ={
+    val innerJoin = for{
+      (e,p) <- employeeTableQuery join projectTableQuery on(_.id === _.emp_id)
+    }yield (e.name,p.name)
+
+    db.run(innerJoin.to[List].result)
+  }
+
+  def rightJoin ={
+    val innerJoin = for{
+      (e,p) <- employeeTableQuery join projectTableQuery on(_.id === _.emp_id)
+    }yield (e.name,p.name)
+
+    db.run(innerJoin.to[List].result)
+  }
+
 }
 
-object ProjectComponent extends ProjectComponent
+object ProjectComponent extends ProjectComponent with MySqlComponent

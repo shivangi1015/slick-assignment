@@ -16,24 +16,38 @@ object DataBaseExecutor extends App{
 
     EmployeeComponent.insert(Employee(3,"abc",4))
     EmployeeComponent.insert(Employee(4,"rahul",5))
+  EmployeeComponent.insert(Employee(4,"rahul",5))
+  EmployeeComponent.insert(Employee(4,"rah",5))
+
+//  EmployeeComponent.delete(5)
 
 
+  //    val allEmployees = EmployeeComponent.getAll
+//    EmployeeComponent.sortByEmployeeName()
+//    val res = Await.result(EmployeeComponent.getAll,Duration.Inf)
+//    println(res)
+//  val q1 = Employee(1,"happy",5)
+//  val q2 = Employee(13,"ashish",5)
+//
+//
+//  EmployeeComponent.addingMultipleAtOnce(q1,q2)
 
 
-    //    val allEmployees = EmployeeComponent.getAll
-    EmployeeComponent.sortByEmployeeName()
-    val res = Await.result(EmployeeComponent.getAll,Duration.Inf)
-    println(res)
+//    ProjectComponent.create
+//    ProjectComponent.insert(Project(20,2,"codesquad"))
+//    ProjectComponent.insert(Project(5,10,"scalageek"))
+//    ProjectComponent.sortByProjectName()
+  ProjectComponent.insert(Project(4,3,"my cell was stolen"))
 
-
-    ProjectComponent.create
-    ProjectComponent.insert(Project(20,2,"codesquad"))
-    ProjectComponent.insert(Project(5,10,"scalageek"))
-    ProjectComponent.sortByProjectName()
-    val projectList = Await.result(ProjectComponent.getAll,Duration.Inf)
+  val projectList = Await.result(ProjectComponent.getAll,Duration.Inf)
     println(projectList)
+   val leftJoinResult = Await.result(ProjectComponent.leftJoin,Duration.Inf)
+  println("Left Join Result: "+leftJoinResult)
 //    val res3 = ProjectComponent.sortByProjectName()
 //    println(res3)
+
+  val rightJoinResult = Await.result(ProjectComponent.rightJoin,Duration.Inf)
+  println("Right Join Result: "+rightJoinResult)
 
 
     DependentComponent.create
@@ -42,6 +56,9 @@ object DataBaseExecutor extends App{
     DependentComponent.insert(Dependent(1,"krishna","grand mother",Some(68)))
     val dependentList = Await.result(DependentComponent.getAll,Duration.Inf)
   println(dependentList)
+
+  val leftJoinResultDep = Await.result(DependentComponent.leftJoin,Duration.Inf)
+  println("Left Join Result on dependents: "+leftJoinResultDep)
 
     print("Retired Dependents: ")
     val res1 = Await.result(DependentComponent.getRetiredDependents,Duration.Inf)

@@ -1,10 +1,13 @@
 package com.example.components
 
-import com.example.connection.DBComponent
+import com.example.connection.{MySqlComponent, DBComponent}
 import com.example.{Employee, EmployeeTable}
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
+
+import slick.dbio.DBIOAction
 
 
 trait EmployeeComponent extends EmployeeTable {
@@ -19,8 +22,11 @@ trait EmployeeComponent extends EmployeeTable {
   }
 
   def delete(exp: Double) = {
-    val query = employeeTableQuery.filter(x => x.experience === exp).delete
-    db.run(query)
+    val query1 = employeeTableQuery.filter(x => x.experience === exp).delete
+//    val query2 = query1.delete
+//    db.run(query1.andThen(query2).cleanUp(query1))
+//    println("Deleted query"+query1.toString)
+    db.run(query1)
   }
 
 
@@ -32,27 +38,27 @@ trait EmployeeComponent extends EmployeeTable {
   def getAll : Future[List[Employee]] = db run {
     employeeTableQuery.to[List].result
   }
-  def upsert(emp : Employee) {
-    val res: List[Employee] = Await.result(EmployeeComponent.getAll,Duration.Inf)
-    val flag = res.map(x => if(x.id == emp.id) true else false)
-    if(flag.contains(true)){
-      val query = employeeTableQuery.filter(_.id === emp.id).map(x => (x.name,x.experience)).update((emp.name,emp.experience))
-      db.run(query)
-
-    }
-    else{
-      db run{
-        employeeTableQuery += emp
-      }
-    }
-
+  def upsert(emp : Employee)={
+    val a: Future[Int] = db.run(employeeTableQuery.insertOrUpdate(emp))
+    a
   }
 
-  def sortByEmployeeName() {
+  def sortByEmployeeName = {
     val sortedNames = employeeTableQuery.sortBy(x => x.name)
-    sortedNames
+    true
+  }
+
+  def addingMultipleAtOnce(emp1 : Employee,emp2 : Employee) ={
+    val ins1 = employeeTableQuery += emp1
+    val ins2 = employeeTableQuery += emp2
+    db.run(ins1 andThen(ins2).cleanUp{
+      case None => ins2
+      case _ => ins2
+    })
+
+
   }
 }
 
 
-object EmployeeComponent extends EmployeeComponent
+object EmployeeComponent extends EmployeeComponent with MySqlComponent

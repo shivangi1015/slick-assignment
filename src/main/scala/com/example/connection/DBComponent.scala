@@ -8,6 +8,6 @@ trait DBComponent {
 
   import driver.api._
 
-  def db: Database
+  val db: Database
 
 }

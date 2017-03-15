@@ -8,7 +8,7 @@ import com.example.connection.{MySqlComponent, PostgresDbProvider, DBComponent}
 case class Employee(id:Int,name:String,experience:Double)
 
 
-trait EmployeeTable extends MySqlComponent{
+trait EmployeeTable{
   this: DBComponent =>
   import driver.api._
 
