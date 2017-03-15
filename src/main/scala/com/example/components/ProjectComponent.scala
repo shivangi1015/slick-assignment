@@ -12,7 +12,11 @@ trait ProjectComponent extends ProjectTable{
   this: DBComponent =>
   import driver.api._
 
-  def create = db.run(projectTableQuery.schema.create)
+  def create = {
+    db.run(
+    projectTableQuery.schema.create)
+  true
+}
 
   def insert(emp: Project) = db run {
     projectTableQuery += emp
@@ -49,15 +53,16 @@ trait ProjectComponent extends ProjectTable{
 
   }
 
-  def sortByProjectName() {
+  def sortByProjectName ={
     val sortedNames = projectTableQuery.sortBy(x => x.name)
+    true
   }
 
   def leftJoin ={
     val innerJoin = for{
       (e,p) <- employeeTableQuery join projectTableQuery on(_.id === _.emp_id)
     }yield (e.name,p.name)
-
+//    println(innerJoin)
     db.run(innerJoin.to[List].result)
   }
 
@@ -65,13 +70,17 @@ trait ProjectComponent extends ProjectTable{
     val innerJoin = for{
       (e,p) <- employeeTableQuery join projectTableQuery on(_.id === _.emp_id)
     }yield (e.name,p.name)
-
+   println(innerJoin)
     db.run(innerJoin.to[List].result)
   }
 
 //  def count ={
 //    db.run((projectTableQuery.length)
 //  }
+
+  def getByPname(pname : String) ={
+    
+  }
 
 }
 
