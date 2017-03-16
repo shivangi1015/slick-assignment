@@ -45,4 +45,19 @@ class ProjectSpec extends AsyncFunSuite {
     proj.rightJoin.flatMap(x => assert(x.size == 3))
   }
 
+  test("Testing add multiple projects "){
+    proj.addMultipleProjects(Project(1,2,"java Project"),Project(3,3,"java Project")).map(x => assert(x == 1))
+  }
+
+  test("Testing getting employee name by project name"){
+    proj.getProjectByEmployeeName.map(x => assert(x.size == 3))
+  }
+
+//  test("Testing insert whether it returns object ") {
+//    proj.insertReturningObj(Project(2,3,"todo")).map( x => assert( x == Project(2,3,"todo")))
+//  }
+
+
+
+
 }

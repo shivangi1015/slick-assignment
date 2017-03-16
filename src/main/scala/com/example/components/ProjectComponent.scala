@@ -90,6 +90,23 @@ trait ProjectComponent extends ProjectTable{
 //  def getByPname(pname : String) ={
 //
 //  }
+def getProjectByEmployeeName = {
+  val action = {
+    for {
+      (e, p) <- employeeTableQuery join projectTableQuery on (_.id === _.emp_id)
+    } yield (e.name, p.name)
+  }.to[List].result
+  db.run(action)
+}
+
+  def insertReturningObj(proj: Project): Future[Project] = {
+    val insertQuery = projectTableQuery returning projectTableQuery.map(_.emp_id) into ((item, id) => item.copy(emp_id = id))
+    val action = insertQuery += proj
+    db.run(action)
+  }
+
+
+
 
 }
 

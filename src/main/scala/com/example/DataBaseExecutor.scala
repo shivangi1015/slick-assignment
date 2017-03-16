@@ -16,8 +16,8 @@ object DataBaseExecutor extends App{
 
     EmployeeComponent.insert(Employee(3,"abc",4))
     EmployeeComponent.insert(Employee(4,"rahul",5))
-  EmployeeComponent.insert(Employee(4,"rahul",5))
-  EmployeeComponent.insert(Employee(4,"rah",5))
+  EmployeeComponent.insert(Employee(5,"lalit",5))
+  EmployeeComponent.insert(Employee(6,"neha",5))
 
 //  EmployeeComponent.delete(5)
 
@@ -38,6 +38,8 @@ object DataBaseExecutor extends App{
 //    ProjectComponent.insert(Project(5,10,"scalageek"))
 //    ProjectComponent.sortByProjectName()
   ProjectComponent.insert(Project(4,3,"my cell was stolen"))
+  ProjectComponent.addMultipleProjects(Project(20,2,"codesquad"),(Project(5,10,"scalageek")))
+
 
   val projectList = Await.result(ProjectComponent.getAll,Duration.Inf)
     println(projectList)
@@ -63,6 +65,8 @@ object DataBaseExecutor extends App{
     print("Retired Dependents: ")
     val res1 = Await.result(DependentComponent.getRetiredDependents,Duration.Inf)
     println(res1)
+
+
 
     Thread.sleep(1000)
 
