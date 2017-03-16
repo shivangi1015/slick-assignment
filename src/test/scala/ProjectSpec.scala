@@ -26,7 +26,7 @@ class ProjectSpec extends AsyncFunSuite {
   }
 
   test("upserting projectss"){
-    proj.upsert(Project(3,7,"java Project")).map(x => assert(x == 1))
+    proj.upsert(Project(3,4,"java Project")).map(x => assert(x == 1))
   }
 
   test("getting all projects"){

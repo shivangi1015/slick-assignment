@@ -17,11 +17,11 @@ class EmployeeSpec extends AsyncFunSuite{
   }
 
   test("delete Employee ") {
-    emp.delete(5).map(x=>assert(x == 1))
+    emp.delete(6).map(x=>assert(x == 1))
   }
 
   test("getting all employees"){
-    emp.getAll.map(x => assert(x.size == 3))
+    emp.getAll.map(x => assert(x.size == 4))
   }
 
   test("upserting employees"){

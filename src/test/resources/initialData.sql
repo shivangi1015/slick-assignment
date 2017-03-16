@@ -4,6 +4,9 @@ INSERT INTO `experienced_employee` (`id`, `name`, `experience`) VALUES (2,'mahes
 
 INSERT INTO `experienced_employee` (`id`, `name`, `experience`) VALUES (3,'ashish', 4);
 
+INSERT INTO `experienced_employee` (`id`, `name`, `experience`) VALUES (4,'ankit', 6);
+
+
 
 INSERT INTO `new_project_table` (`emp_id`, `pid`, `name`) VALUES (1,101,'scalageek');
 

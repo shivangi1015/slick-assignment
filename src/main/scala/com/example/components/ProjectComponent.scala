@@ -78,9 +78,18 @@ trait ProjectComponent extends ProjectTable{
 //    db.run((projectTableQuery.length)
 //  }
 
-  def getByPname(pname : String) ={
-    
+  def addMultipleProjects(pr1: Project,pr2: Project) =
+  {
+    val ins1 = projectTableQuery += pr1
+
+    val ins2 = projectTableQuery += pr2
+    val res = ins1 andThen ins2
+    db.run(res)
   }
+
+//  def getByPname(pname : String) ={
+//
+//  }
 
 }
 
